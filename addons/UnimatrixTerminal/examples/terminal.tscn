@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://xmpnep3xb0mw"]
+
+[ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/terminal.gd" id="1_u51e2"]
+[ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/TerminalDisplay.gd" id="2_gvj4h"]
+[ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/spawner_command.gd" id="4_u8mc5"]
+[ext_resource type="PackedScene" uid="uid://b86k5upl8o4yh" path="res://addons/UnimatrixTerminal/examples/test_square.tscn" id="5_u2nom"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mu7g"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Terminal" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 268.0
+script = ExtResource("1_u51e2")
+
+[node name="TerminalDisplay" type="RichTextLabel" parent="Terminal"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_8mu7g")
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("2_gvj4h")
+
+[node name="LineEdit" type="LineEdit" parent="Terminal"]
+layout_mode = 2
+placeholder_text = "Enter Command Here"
+
+[node name="Spawn" type="Node" parent="."]
+script = ExtResource("4_u8mc5")
+entities = {
+"cube": ExtResource("5_u2nom")
+}
+command_name = "spawn"
+command_help = "Spawns the provided entity by name.
+Example:
+	spawn cube
+
+optional params:
+	-p: vec2 position to spawn the entity (comma sperated)"
+
+[connection signal="text_submitted" from="Terminal/LineEdit" to="Terminal" method="on_command_entered"]
