@@ -3,7 +3,7 @@ class_name UnimatrixCommandSpawner extends UnimatrixCommand
 @export var entities: Dictionary = {}
 
 var keymap = {
-	'-p': set_position.bind(parse_vec)
+	'-p': set_position.bind(UnimatrixProcessor.parse_vec2)
 }
 # Called when the node enters the scene tree for the first time.
 func _ready():

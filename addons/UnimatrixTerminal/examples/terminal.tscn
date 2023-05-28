@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://xmpnep3xb0mw"]
+[gd_scene load_steps=8 format=3 uid="uid://xmpnep3xb0mw"]
 
 [ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/terminal.gd" id="1_u51e2"]
 [ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/TerminalDisplay.gd" id="2_gvj4h"]
 [ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/spawner_command.gd" id="4_u8mc5"]
+[ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/json_reader.gd" id="5_sfgd1"]
 [ext_resource type="PackedScene" uid="uid://b86k5upl8o4yh" path="res://addons/UnimatrixTerminal/examples/test_square.tscn" id="5_u2nom"]
+[ext_resource type="Script" path="res://addons/UnimatrixTerminal/examples/csv_reader.gd" id="6_y6w2a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8mu7g"]
 bg_color = Color(0, 0, 0, 1)
@@ -48,5 +50,14 @@ Example:
 
 optional params:
 	-p: vec2 position to spawn the entity (comma sperated)"
+
+[node name="JSONParser" type="Node" parent="."]
+script = ExtResource("5_sfgd1")
+command_name = "json"
+
+[node name="CSVParser" type="Node" parent="."]
+script = ExtResource("6_y6w2a")
+command_name = "csv"
+command_help = "Read the csv as a dict"
 
 [connection signal="text_submitted" from="Terminal/LineEdit" to="Terminal" method="on_command_entered"]
